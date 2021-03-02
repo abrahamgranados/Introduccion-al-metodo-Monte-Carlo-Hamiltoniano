@@ -51,3 +51,4 @@ plt.xlabel('coordenada generalizada (q)')
 
 
 plt.legend(('Euler','Euler simpléctico', 'Leapfrog'), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
+ 
