@@ -53,7 +53,7 @@ for i in range(0,400):
 burnin=280
 plt.grid(linestyle='dashed')
 plt.plot(vector_verosim2)
-plt.ylabel('$log(X_{t})$')
+plt.ylabel('$log(S(X_{t}))$')
 plt.xlabel('$X_{t}$')
 plt.axvline(burnin,-100,100,  color="red",  linestyle='dashed')
 #plt.savefig("burnrwmh1.png",bbox_inches='tight',dpi=300)
@@ -78,9 +78,27 @@ plt.axvline(burnin,-100,100,  color="red",  linestyle='dashed')
 # 
 # burn1<-BMK.Diagnostic(cadena_bruta, 200) #hacemos  200 subconjuntos
 # burnin_DH=as.numeric(c(0,colnames(burn1))[which.max(c(0,which(burn1>.5)))])
-# #diferencia mayor a 0.5
-# burnin_DH    #burnin propuesto con distancias de Hellinger
-#
+# 
+# burn1[1,] #distancias entre los subconjuntos
+# #plot(burn1[1,], col="cyan4", main="Distancias de Hellinger entre los subconjuntos de la cadena", ylab="Distancia", xlab="Subconjunto x y x+1", pch=19)
+# #abline(h=0.5, col="red", lty= "dotted", lwd=3)
+
+distancias = %R burn1[1,]
+
+umbral=0.5
+plt.grid(linestyle='dashed')
+plt.ylabel("Distancia")
+plt.xlabel('$d_{i, i+1}$')
+plt.axhline(umbral,-100,100,  color="red",  linestyle='dashed')
+plt.legend(('Umbral  $\eta$ ',''), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
+plt.plot(distancias, "o", color="teal", markersize=5)
+plt.savefig("dishel.png",bbox_inches='tight',dpi=300)
+files.download("dishel.png")
+
+# Commented out IPython magic to ensure Python compatibility.
+# %%R
+# 
+# burnin_DH  #Burnin propuesto con las distancias de Hellinger
 
 """utilizaremos el burnin obtenido del método grafico """
 
@@ -124,8 +142,8 @@ x_pdf=ss.gamma.pdf(x,a=5,scale=1)    #parametrizada, alfa = 5, betta=10
 plt.plot(x,x_pdf, color="red",  linewidth=3)
 
 plt.hist(cadena_sl, bins = int(40), density=True, color='teal')
+#plt.title(" ")
 plt.grid(linestyle='dashed')
 plt.legend(('Teórica', 'Simulada'), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
 plt.ylabel('Densidad')
 plt.xlabel('$X_{t}$')
-
