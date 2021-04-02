@@ -71,7 +71,7 @@ cadena_bruta= simulacion[0]
 tasa_rechazo= simulacion[1]/(cadena_bruta.shape[0]-1)
 tasa_rechazo
 
-"""##EJEMPLO 2, distintos parametros"""
+"""##EJEMPLO 2"""
 
 np.random.seed(0)
 random.seed(0)
@@ -97,9 +97,10 @@ for i in range(0,100):
 burnin=64
 plt.grid(linestyle='dashed')
 plt.plot(vector_verosim2)
-plt.ylabel('$log(X_{t})$')
+plt.ylabel('$log(S(X_{t}))$')
 plt.xlabel('$X_{t}$')
 plt.axvline(burnin,-100,100,  color="red",  linestyle='dashed')
+
 #plt.savefig("burnhmc1.png",bbox_inches='tight',dpi=300)
 #files.download("burnhmc1.png")
 
@@ -127,6 +128,30 @@ plt.axvline(burnin,-100,100,  color="red",  linestyle='dashed')
 # #diferencia mayor a 0.5
 # burnin_DH
 
+# Commented out IPython magic to ensure Python compatibility.
+# %%R
+# 
+# burn1<-BMK.Diagnostic(cadena_bruta1, 200) #hacemos  200 subconjuntos
+# burnin_DH=as.numeric(c(0,colnames(burn1))[which.max(c(0,which(burn1>.5)))])
+# 
+# burn1[1,] #distancias entre los subconjuntos
+
+distancias = %R burn1[1,]
+
+umbral=0.5
+
+plt.grid(linestyle='dashed')
+plt.ylabel("Distancia")
+plt.xlabel('$d_{i, i+1}$')
+
+plt.axhline(umbral,-100,100,  color="red",  linestyle='dashed')
+plt.legend(('Umbral  $\eta$ =0.5',''), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
+plt.ylim((0,0.6))
+plt.plot(distancias, "o", color="teal", markersize=5)
+
+plt.savefig("dishel2.png",bbox_inches='tight',dpi=300)
+files.download("dishel2.png")
+
 """utilizaremos el burnin obtenido del método grafico """
 
 cadena_sb=cadena_bruta1[64:99999]   #quitamos las primeras 280 muestras
@@ -136,6 +161,8 @@ plt.title("")
 plt.ylabel('Autocorrelación')
 plt.xlabel('Lag')
 pyplot.show()
+fig.savefig("autocor_1.png",bbox_inches='tight',dpi=300)
+files.download("autocor_1.png")
 
 """##Lag con IAT"""
 
@@ -166,3 +193,6 @@ plt.grid(linestyle='dashed')
 plt.legend(('Teórica', 'Simulada'), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
 plt.ylabel('Densidad')
 plt.xlabel('$X_{t}$')
+
+plt.savefig("densidadgamahmc.png",bbox_inches='tight',dpi=300)
+files.download("densidadgamahmc.png")
