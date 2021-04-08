@@ -45,13 +45,15 @@ w=np.sqrt(k/m)
 t = np.arange(0,2*(np.pi)/w, 0.01)
 q1=np.cos(np.sqrt(15) * t)
 p1=-2*np.sqrt(15)*np.sin(np.sqrt(15)*t)
+
+plt.plot(np.cos(np.sqrt(15) * 0),-2*np.sqrt(15)*np.sin(np.sqrt(15)*0), 'o', color="teal", markersize=5)
+plt.legend(["$t\in  \{0,\dfrac{2\pi}{w}\}$"], bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
 plt.plot(q1,p1, color='maroon')
+plt.plot(np.cos(np.sqrt(15) * 0),-2*np.sqrt(15)*np.sin(np.sqrt(15)*0), 'o', color="teal", markersize=5)
 plt.ylabel("momento generalizado (p)")
 plt.xlabel('coordenada generalizada (q)')
 
 plt.grid(linestyle='dashed')
-
-plt.show()
 
 """###Metodo de Euler"""
 
