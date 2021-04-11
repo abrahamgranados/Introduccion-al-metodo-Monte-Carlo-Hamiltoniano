@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.stats as ss
 from google.colab import files
+import time
 
 dimension=150
 medias=np.arange(1,dimension+1,1)
@@ -66,31 +67,13 @@ cadena_bruta= simulaciones_ind[0]
 tasa_aceptacion= 1-simulaciones_ind[1]/(simulaciones_ind[0].shape[0]-1)
 tasa_aceptacion
 
-promedios_emp=np.apply_along_axis(np.mean, 0, cadena_bruta)
-plt.plot(medias, '.b')
-plt.grid(linestyle='dashed')
-plt.plot(promedios_emp, '.r')
-plt.gca().axes.yaxis.set_ticklabels([])
-plt.legend(('Teórica', 'Aproximada'), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
-plt.xlabel('Variable')
-#plt.savefig("dim_h1.png",bbox_inches='tight',dpi=300)
-#files.download("dim_h1.png")
 
-desviaciones_emp=np.apply_along_axis(np.var, 0, cadena_bruta)
-plt.plot(medias/2, '.b') #MEDIAS SON IGUALES A LAS VARIANZAS
-plt.plot(desviaciones_emp, '.r')
-plt.grid(linestyle='dashed')
-plt.xlabel('Variable')
-plt.legend(('Teórica', 'Aproximada'), bbox_to_anchor=(1.05,0.8), loc=3, borderaxespad=0, prop={'size':9})
-#plt.savefig("dim_h2.png",bbox_inches='tight',dpi=300)
-#files.download("dim_h2.png")
 
 plt.plot(cadena_bruta[len(cadena_bruta)-1000:len(cadena_bruta),149], ".r")
 plt.savefig("dim_h3.png",bbox_inches='tight',dpi=300)
 plt.grid(linestyle='dashed')
 plt.xlabel('Iteración')
-#plt.savefig("dim_h3.png",bbox_inches='tight',dpi=300)
-#files.download("dim_h3.png")
+
 
 """#Ejemplo con RWMH 
 
@@ -140,24 +123,7 @@ muestra_RWMH
 
 tasa_aceptacion
 
-promedios_emp=np.apply_along_axis(np.mean, 0, cadena_sl)
-plt.plot(medias, '.b')
-plt.grid(linestyle='dashed')
-plt.plot(promedios_emp, '.r')
-plt.ylabel('Media')
-plt.xlabel('Variable')
 
-#plt.savefig("dim_rw1.png",bbox_inches='tight',dpi=300)
-#files.download("dim_rw1.png")
-
-desviaciones_emp=np.apply_along_axis(np.var, 0, cadena_sl)
-plt.plot(medias/2, '.b') #MEDIAS SON IGUALES A LAS VARIANZAS
-plt.plot(desviaciones_emp, '.r')
-plt.grid(linestyle='dashed')
-plt.ylabel('Varianza')
-plt.xlabel('Variable')
-#plt.savefig("dim_rw2.png",bbox_inches='tight',dpi=300)
-#files.download("dim_rw2.png")
 
 plt.plot(cadena_sl[len(cadena_sl)-1000:len(cadena_sl),149], ".r")
 plt.grid(linestyle='dashed')
